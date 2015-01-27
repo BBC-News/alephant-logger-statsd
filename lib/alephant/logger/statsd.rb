@@ -1,5 +1,6 @@
 require "alephant/logger/statsd/version"
 require "statsd-ruby"
+require "thread"
 
 module Alephant
   module Logger
@@ -9,7 +10,7 @@ module Alephant
       end
 
       def increment(key, interval = 1)
-        server.increment(key, interval)
+        send { server.increment(key, interval) }
       end
 
       private
@@ -28,6 +29,10 @@ module Alephant
           :port      => 8125,
           :namespace => "statsd"
         }
+      end
+
+      def send
+        Thread.new { yield }
       end
     end
   end
