@@ -1,6 +1,6 @@
 # Alephant::Logger::Statsd
 
-Statsd driver for the [alephant-logger](https://github.com/BBC-News/alephant-logger) gem.
+Statsd driver for the [alephant-logger](https://github.com/BBC-News/alephant-logger) gem, which consumes the [statsd-ruby](https://github.com/reinh/statsd) gem.
 
 ## Installation
 
@@ -20,7 +20,39 @@ Or install it yourself as:
 
 ## Usage
 
-TODO: Write usage instructions here
+Create an instance of the driver:
+
+```ruby
+config = {
+  :host      => "statsd.test.service.bbc.co.uk",
+  :port      => 6452,
+  :namespace => "test"
+}
+
+driver = Alephant::Logger::Statsd.new config
+```
+
+**Note** that a config is *optional*, if you leave any of the keys out then they will be replaced by the following:
+
+```ruby
+{
+  :host      => "localhost",
+  :port      => 8125,
+  :namespace => "statsd"
+}
+```
+
+Then increment a custom metric, with a given key:
+
+```key
+driver.increment 'front_page.response_time'
+```
+
+You can also increment the metric by a specific interval:
+
+```key
+driver.increment('facebook.signups', 43)
+```
 
 ## Contributing
 
