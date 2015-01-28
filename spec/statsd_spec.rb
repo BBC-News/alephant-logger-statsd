@@ -68,7 +68,7 @@ describe Alephant::Logger::Statsd do
 
   describe "#increment" do
     let(:driver) { subject.new }
-    let(:key) { 'batman' }
+    let(:key) { "batman" }
 
     context "default interval" do
       specify do
