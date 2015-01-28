@@ -1,4 +1,3 @@
-require "alephant/logger/statsd/version"
 require "statsd-ruby"
 require "thread"
 
