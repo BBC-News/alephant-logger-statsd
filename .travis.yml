@@ -2,4 +2,4 @@ language: ruby
 rvm:
   - jruby
   - 1.7.17
-script: bundle exec rake all
+script: "bundle exec rake all"
