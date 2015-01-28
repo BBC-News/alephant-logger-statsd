@@ -5,7 +5,7 @@ module Alephant
   module Logger
     class Statsd
       def initialize(config = {})
-        connect defaults.merge(config)
+        @server = connect defaults.merge(config)
       end
 
       def increment(key, interval = 1)
@@ -17,7 +17,7 @@ module Alephant
       attr_reader :server
 
       def connect(config)
-        @server = ::Statsd.new(config[:host], config[:port]).tap do |s|
+        ::Statsd.new(config[:host], config[:port]).tap do |s|
           s.namespace = config[:namespace]
         end
       end
