@@ -72,8 +72,7 @@ describe Alephant::Logger::Statsd do
 
     context "default interval" do
       specify do
-        driver.increment key
-        sleep 1
+        driver.increment(key).join
         expect(server).to have_received(:increment).once.with(key, 1)
       end
     end
@@ -82,8 +81,7 @@ describe Alephant::Logger::Statsd do
       let(:interval) { 10 }
 
       specify do
-        driver.increment(key, interval)
-        sleep 1
+        driver.increment(key, interval).join
         expect(server).to have_received(:increment).once.with(key, interval)
       end 
     end
