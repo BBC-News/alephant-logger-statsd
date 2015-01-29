@@ -9,7 +9,7 @@ module Alephant
       end
 
       def increment(key, interval = 1)
-        send { server.increment(key, interval) }
+        send_data { server.increment(key, interval) }
       end
 
       private
@@ -30,7 +30,7 @@ module Alephant
         }
       end
 
-      def send
+      def send_data
         Thread.new { yield }
       end
     end
