@@ -23,6 +23,9 @@ Or install it yourself as:
 Create an instance of the driver:
 
 ```ruby
+require "alephant/logger"
+require "alephant/logger/statsd"
+
 config = {
   :host      => "statsd.test.service.bbc.co.uk",
   :port      => 6452,
@@ -30,6 +33,8 @@ config = {
 }
 
 driver = Alephant::Logger::Statsd.new config
+logger = Alephant::Logger.create([driver])
+logger.increment "foo.bar"
 ```
 
 **Note** that a config is *optional*, if you leave any of the keys out then they will be replaced by the following:
