@@ -33,7 +33,7 @@ config = {
 }
 
 driver = Alephant::Logger::Statsd.new config
-logger = Alephant::Logger.create([driver])
+logger = Alephant::Logger.setup driver
 logger.increment "foo.bar"
 ```
 
