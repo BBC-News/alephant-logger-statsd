@@ -6,8 +6,8 @@ require 'alephant/logger/statsd/version'
 Gem::Specification.new do |spec|
   spec.name          = "alephant-logger-statsd"
   spec.version       = Alephant::Logger::Statsd::VERSION
-  spec.authors       = ["Charlie Revett"]
-  spec.email         = ["charlierevett@gmail.com"]
+  spec.authors       = ["BBC News"]
+  spec.email         = ["FutureMediaNewsRubyGems@bbc.co.uk"]
   spec.summary       = %q{StatsD driver for Alephant Logger gem.}
   spec.homepage      = "https://github.com/BBC-News/alephant-logger-statsd"
   spec.license       = "MIT"
