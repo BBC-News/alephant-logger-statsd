@@ -12,9 +12,7 @@ module Alephant
         send_data { server.increment(key, interval) }
       end
 
-      def metric(key)
-        increment(key)
-      end
+      alias metric increment
 
       private
 
