@@ -12,6 +12,8 @@ module Alephant
         send_data { server.increment(key, interval) }
       end
 
+      alias metric increment
+
       private
 
       attr_reader :server
