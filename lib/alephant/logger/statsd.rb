@@ -14,6 +14,10 @@ module Alephant
 
       alias metric increment
 
+      def timing(key, milliseconds, sample_rate = 1)
+        send_data { server.timing(key, milliseconds, sample_rate) }
+      end
+
       private
 
       attr_reader :server
