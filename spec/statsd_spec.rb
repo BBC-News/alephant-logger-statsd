@@ -5,7 +5,8 @@ describe Alephant::Logger::Statsd do
   let(:server) do
     instance_double(
       ::Statsd,
-      :increment => true,
+      :increment  => true,
+      :timing     => true,
       :namespace= => true
     )
   end
@@ -27,7 +28,7 @@ describe Alephant::Logger::Statsd do
       specify do
         subject.new
         expect(::Statsd).to have_received(:new).once.with(
-          config[:host], 
+          config[:host],
           config[:port]
         )
       end
@@ -52,7 +53,7 @@ describe Alephant::Logger::Statsd do
       specify do
         subject.new config
         expect(::Statsd).to have_received(:new).once.with(
-          config[:host], 
+          config[:host],
           config[:port]
         )
       end
@@ -63,7 +64,7 @@ describe Alephant::Logger::Statsd do
           config[:namespace]
         )
       end
-    end 
+    end
   end
 
   describe "#increment" do
@@ -83,7 +84,50 @@ describe Alephant::Logger::Statsd do
       specify do
         driver.increment(key, interval).join
         expect(server).to have_received(:increment).once.with(key, interval)
-      end 
+      end
+    end
+  end
+
+  describe "#metric" do
+    let(:driver) { subject.new }
+    let(:key) { "batman" }
+
+    context "default interval" do
+      specify do
+        driver.metric(key).join
+        expect(server).to have_received(:increment).once.with(key, 1)
+      end
+    end
+
+    context "custom interval" do
+      let(:interval) { 10 }
+
+      specify do
+        driver.metric(key, interval).join
+        expect(server).to have_received(:increment).once.with(key, interval)
+      end
+    end
+  end
+
+  describe "#timing" do
+    let(:driver) { subject.new }
+    let(:key) { "batman" }
+    let(:time) { 512 }
+
+    context "default interval" do
+      specify do
+        driver.timing(key, time).join
+        expect(server).to have_received(:timing).once.with(key, time, 1)
+      end
+    end
+
+    context "custom interval" do
+      let(:interval) { 10 }
+
+      specify do
+        driver.timing(key, time, interval).join
+        expect(server).to have_received(:timing).once.with(key, time, interval)
+      end
     end
   end
 end
